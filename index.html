@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,34 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.8/dist/cdn.min.js"></script>
 
 </head>
-<body>
-<div x-data="{ message : 'Hello My Guy'}">
-    <p x-text="message"></p>
-    <input type="text" x-model="message">
-</div>
 
+<body>
+    <!-- <form x-data="{
+    users : [],
+    deleteUsers(){
+        console.log(this.users)
+    }
+    
+    }" x-on:submit.prevent="deleteUsers">
+        <input type="checkbox" x-model="users" value="1">Alex
+        <input type="checkbox" x-model="users" value="">James
+        <input type="checkbox" x-model="users" value="3">Tope
+        <input type="checkbox" x-model="users" value="4">
+
+        <button type="submit">Submit</button>
+
+    </form> -->
+
+    <div
+        x-data="{
+            plan : 'monthly'
+        }"
+    >
+
+    <input type="radio" name="plan" value="monthly" x-model="plan">
+    <input type="radio" name="plan" value="yearly" x-model="plan">
+        <span x-show="plan" x-text="`You have chosen ${plan} plan`"></span>
     </div>
 </body>
+
 </html>
