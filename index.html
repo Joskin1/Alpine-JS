@@ -10,32 +10,21 @@
 </head>
 
 <body>
-    <!-- <form x-data="{
-    users : [],
-    deleteUsers(){
-        console.log(this.users)
-    }
-    
-    }" x-on:submit.prevent="deleteUsers">
-        <input type="checkbox" x-model="users" value="1">Alex
-        <input type="checkbox" x-model="users" value="">James
-        <input type="checkbox" x-model="users" value="3">Tope
-        <input type="checkbox" x-model="users" value="4">
+    <form x-data="{ name : ''}" x-on:submit.prevent="alert(`Hello ${name}`)">
+        <input type="text" x-model="name">
+        <button type="submit" x-bind:disabled="name === ''">Submit</button>
+    </form>
+    <hr>
+    <hr>
+    <hr>
 
-        <button type="submit">Submit</button>
-
-    </form> -->
-
-    <div
-        x-data="{
-            plan : 'monthly'
-        }"
-    >
-
-    <input type="radio" name="plan" value="monthly" x-model="plan">
-    <input type="radio" name="plan" value="yearly" x-model="plan">
-        <span x-show="plan" x-text="`You have chosen ${plan} plan`"></span>
+    <div x-data="{ progress : 0}">
+        <progress max="30" x-bind:value="progress"> 
+            <span x-text="`${progress}%`"></span>
+        </progress>
+        <button x-on:click="progress = progress + 5">Increase</button>
     </div>
+    
 </body>
 
 </html>
