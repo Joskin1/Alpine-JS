@@ -6,40 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.8/dist/cdn.min.js"></script>
-    <style>
-        .bold {
-            font-weight: bold;
-        }
-    </style>
 </head>
 
 <body>
-    <div
-    x-data="{
-        selected: [], 
-        people : [
-            {id: 1, name: 'Joskin'},
-            {id: 2, name: 'Samuel'},
-            {id: 3, name: 'Favour'},
-            {id: 4, name: 'Mercy'}
-
-        ]
-    }"
-    >
-    <template x-for="person in people">
-        <div>
-            <input 
-            type="checkbox"
-            x-bind:id="`person_${person.id}`"
-            x-bind:value="person"
-            x-model="selected"
-
-            > 
-            <span x-text="person.name"></span>
-        </div>
-
-    </template>
-
+    <div x-data="{ body: '<strong> Hello Man Of God </strong>'}">
+        <div x-html="body"></div>
     </div>
 </body>
 
