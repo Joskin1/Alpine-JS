@@ -10,15 +10,28 @@
 </head>
 
 <body>
-    <div x-data="{fruits : ['apple', 'mangoes', 'stawberries', 'orange']}">
-        <template x-for="fruit, index in fruits">
-            <div>
-                <span x-text="index + 1"></span>: <span x-text="fruit"></span>
-                
-            </div>
+    <div x-data="{
+        show : false,
+        users: [
+         {id: 1, name: 'Joskin', point: 5},
+         {id: 2, name: 'John', point: 10}
+         ],
+        usersOrderedByPoints () {
+            return this.users.sort((a, b) => b.points - a.points)
+         }
+    }">
+        <button x-on:click="show = true"> Show </button>
+        <div x-show="show">
+            <template x-if="show">
+            <template x-for="user in usersOrderedByPoints">
+                <div>
+                <span x-text="user.name"></span>: <span x-text="user.point"></span>
 
+                </div>
 
+            </template>
         </template>
+        </div>
 
     </div>
 </body>
