@@ -10,21 +10,15 @@
 </head>
 
 <body>
-    <div x-data="{
-        body: '',
-        markdown: '',
-
-        preview(){
-        this.markdown = window.marked(this.body)
-        }
-    }"
-    >
-        <div>
-            <div> <textarea cols="30" rows="5" x-model="body"></textarea>
+    <div x-data="{fruits : ['apple', 'mangoes', 'stawberries', 'orange']}">
+        <template x-for="fruit, index in fruits">
+            <div>
+                <span x-text="index + 1"></span>: <span x-text="fruit"></span>
+                
             </div>
-            <button x-on:click="markdown">Preview</button>
-        </div>
-        <div x-html="preview"></div>
+
+
+        </template>
 
     </div>
 </body>
