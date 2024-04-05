@@ -6,25 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.8/dist/cdn.min.js"></script>
-
+    <style>
+        .bold {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-    <form x-data="{ name : ''}" x-on:submit.prevent="alert(`Hello ${name}`)">
-        <input type="text" x-model="name">
-        <button type="submit" x-bind:disabled="name === ''">Submit</button>
-    </form>
-    <hr>
-    <hr>
-    <hr>
+    <div
+    x-data="{
+        selected: [], 
+        people : [
+            {id: 1, name: 'Joskin'},
+            {id: 2, name: 'Samuel'},
+            {id: 3, name: 'Favour'},
+            {id: 4, name: 'Mercy'}
 
-    <div x-data="{ progress : 0}">
-        <progress max="30" x-bind:value="progress"> 
-            <span x-text="`${progress}%`"></span>
-        </progress>
-        <button x-on:click="progress = progress + 5">Increase</button>
+        ]
+    }"
+    >
+    <template x-for="person in people">
+        <div>
+            <input 
+            type="checkbox"
+            x-bind:id="`person_${person.id}`"
+            x-bind:value="person"
+            x-model="selected"
+
+            > 
+            <span x-text="person.name"></span>
+        </div>
+
+    </template>
+
     </div>
-    
 </body>
 
 </html>
