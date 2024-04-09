@@ -1,53 +1,101 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Template • TodoMVC</title>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<!-- CSS overrides - remove if you don't need it -->
+		<link rel="stylesheet" href="css/app.css">
+		<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.8/dist/cdn.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.1/marked.min.js"></script>
-    <style>
-        .modal_wrapper {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, .5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal {
-            width: 100%;
-            max-width: 30%;
-            background-color: #fff;
-            padding: 20px;
-           
-        }
-    </style>
-</head>
+	</head>
+	<body>
+		<section
+		x-data="
+		{
+			todos : [],
+			get active(){
+				return this.todos.filter(todo => !todo.completed);
+			},
+			newTodo : '',
+			addTodo () {
+				this.todos.push({
+					id: this.todos.length + 1,
+					body: this.newTodo,
+					completed: false
+				});
+				this.newTodo = ''
+			},
+			deleteTodo(todo){
+				let position = this.todos.indexOf(todo);
 
-<body>
-    <!-- <div 
-    class="modal_wrapper" 
-    x-data="{open : false}"
-    x-show="open"
-    x-on:open-modal.window="open = true"
-    x-on:keyup.escape.window="open = false"
-    >
-        
-        <div class="modal"  x-show="open" x-on:click.outside="open = false">
-            This is a modal
+				this.todos.splice(position, 1);
+			}
 
-        </div>
-    </div>
-    <button x-data x-on:click="$dispatch('open-modal')">Open Modal</button> -->
-    <div x-data="{ message : '' }" x-on:message.window="message = $event.detail.message">
-        <span x-text="message"></span>
-    </div>
-    <button x-data x-on:click="$dispatch('message', { message : 'Hello'})">Set Message</button>
+		}
+		"
+		class="todoapp">
+			<header class="header">
+				<h1>todos</h1>
+				<input x-model="newTodo" @keyup.enter="addTodo"  class="new-todo" placeholder="What needs to be done?" autofocus>
+			</header>
+			<!-- This section should be hidden by default and shown when there are todos -->
+			<section class="main" x-show="todos.length">
+				<input id="toggle-all" class="toggle-all" type="checkbox"
 
-    
-</body>
+					>
+				<label for="toggle-all">Mark all as complete</label>
+				<ul class="todo-list">
+					<!-- These are here just to show the structure of the list items -->
+					<!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
+					<template x-for="todo in todos" :key="todo.id">
+						<li x-bind:class="{ completed : todo.completed }">
+							<div class="view">
+								<input
+									@click="todo.completed = ! todo.completed"
+									class="toggle"
+									type="checkbox">
+								<label x-text="todo.body"></label>
+								<button @click="deleteTodo(todo)" class="destroy"></button>
+							</div>
+							<input class="edit" value="Rule the web">
+						</li>
+					</template>
 
+				</ul>
+			</section>
+			<!-- This footer should be hidden by default and shown when there are todos -->
+			<footer class="footer" x-show="todos.length">
+				<!-- This should be `0 items left` by default -->
+				<span class="todo-count"><strong x-text="active.length"></strong> item left</span>
+				<!-- Remove this if you don't implement routing -->
+				<ul class="filters">
+					<li>
+						<a class="selected" href="#/">All</a>
+					</li>
+					<li>
+						<a href="#/active">Active</a>
+					</li>
+					<li>
+						<a href="#/completed">Completed</a>
+					</li>
+				</ul>
+				<!-- Hidden if no completed items are left ↓ -->
+				<button class="clear-completed">Clear completed</button>
+			</footer>
+		</section>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<!-- Remove the below line ↓ -->
+			<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+			<!-- Change this out with your name and url ↓ -->
+			<p>Created by <a href="http://todomvc.com">you</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<!-- Scripts here. Don't remove ↓ -->
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="js/app.js"></script>
+	</body>
 </html>
