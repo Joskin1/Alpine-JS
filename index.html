@@ -21,7 +21,11 @@
 			</header>
 			<!-- This section should be hidden by default and shown when there are todos -->
 			<section class="main" x-show="todos.length">
-				<input id="toggle-all" class="toggle-all" type="checkbox"
+				<input x-model="allCompleted"
+					@click="toggleAllComplete"
+					id="toggle-all"
+					class="toggle-all"
+					type="checkbox"
 
 					>
 				<label for="toggle-all">Mark all as complete</label>
@@ -35,7 +39,7 @@
 						 }">
 							<div class="view">
 								<input x-model="todo.completed"
-									@click="todo.completed = ! todo.completed"
+									@click="toggleTodoCompletion(todo)"
 									class="toggle"
 									type="checkbox">
 								<label @dblclick="editTodo(todo)" x-text="todo.body"></label>
@@ -53,7 +57,7 @@
 			<!-- This footer should be hidden by default and shown when there are todos -->
 			<footer class="footer" x-show="todos.length">
 				<!-- This should be `0 items left` by default -->
-				<span class="todo-count"><strong x-text="active.length"></strong> item left</span>
+				<span class="todo-count"><strong x-text="active.length"></strong> <span x-text="active.length === 1 ? 'item' : 'items'"></span> left</span>
 				<!-- Remove this if you don't implement routing -->
 				<ul class="filters">
 					<li>
@@ -67,15 +71,12 @@
 					</li>
 				</ul>
 				<!-- Hidden if no completed items are left ↓ -->
-				<button @click="todos = active" x-show="completed.length" class="clear-completed">Clear completed</button>
+				<button @click="clearCompletedTodos" x-show="completed.length" class="clear-completed">Clear completed</button>
 			</footer>
 		</section>
 		<footer class="info">
 			<p>Double-click to edit a todo</p>
-			<!-- Remove the below line ↓ -->
-			<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
-			<!-- Change this out with your name and url ↓ -->
-			<p>Created by <a href="http://todomvc.com">you</a></p>
+			<p>Created by Joskin Joseph</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
 		<!-- Scripts here. Don't remove ↓ -->
